@@ -1,2 +1,2 @@
 # Rocket Patrol Remake
-Intro assignment for my Game Dev Experience class. Will be live [on my website](https://dninemfive.github.io/rocket-patrol-remake) at some point.
+Second assignment for my Game Dev Experience class, modding the first Rocket Patrol remake. Can be played [here](https://dninemfive.github.io/rocket-patrol-remix).
