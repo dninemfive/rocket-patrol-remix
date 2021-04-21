@@ -49,6 +49,8 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width / 2, game.config.height / 2, "GAME OVER", textConfig).setOrigin(0.5);
             this.add.text(game.config.width / 2, game.config.height / 2 + 64, "Press (R) to Restart or ← for Menu", textConfig).setOrigin(0.5);
             this.gameOver = true;
+            highScore = this.score;
+            console.log("Game over. High score: " + highScore);
         }, null, this);
     }
 
