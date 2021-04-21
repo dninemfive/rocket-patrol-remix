@@ -13,6 +13,7 @@ let borderPadding = borderUISize / 3;
 let keyF, keyR, keyLEFT, keyRIGHT;
 
 let highScore = 0;
+let timerDelta = 0.1; // resolution of the timer, as a fraction of one second
 
 // if we make this a global we don't have to copy this to multiple contexts >.>
 let textConfig = {

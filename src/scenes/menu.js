@@ -23,7 +23,7 @@ class Menu extends Phaser.Scene {
             // easy
             game.settings = {
                 spaceshipSpeed: 3,
-                gameTimer: 3 // in seconds, will be multiplied by 1000 later
+                gameTimer: 5 // in seconds, will be multiplied by 1000 later
             }
             this.sound.play("sfx_select");
             this.scene.start("play");
@@ -31,7 +31,7 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)){
             game.settings = {
                 spaceshipSpeed: 4,
-                gameTimer: 5
+                gameTimer: 7
             }
             this.sound.play("sfx_select");
             this.scene.start("play");

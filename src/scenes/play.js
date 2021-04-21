@@ -45,7 +45,7 @@ class Play extends Phaser.Scene {
         // timer
         this.gameOver = false;
         textConfig.fixedWidth = 0;
-        this.clock = this.time.delayedCall(game.settings.gameTimer * 1000, () => {
+        this.clock = this.time.delayedCall(1000 * timerDelta, () => {
             this.timerTick();
         }, null, this);
     }
@@ -63,7 +63,8 @@ class Play extends Phaser.Scene {
                 ship.update();
                 if (this.checkCollision(this.rocket, ship)){
                     this.rocket.reset();
-                    this.shipExplode(ship);                
+                    this.shipExplode(ship);
+                    this.timeRemaining += 3 * timerDelta;
                 }
             }
         }
@@ -105,10 +106,11 @@ class Play extends Phaser.Scene {
     // Called once per second. Schedules a call to itself until the game is over.
     timerTick(){
         if (this.timeRemaining > 0) {
-            this.timeRemaining--;
-            this.timerLabel.text = this.timeRemaining;
+            this.timeRemaining -= timerDelta;
+            this.timerLabel.text = Math.round(10 * this.timeRemaining) / 10; // round to one decimal place
         }
         if (this.timeRemaining <= 0){
+            this.timerLabel.text = 0;
             if(this.score > highScore) {
                 highScore = this.score;
             }
@@ -118,7 +120,7 @@ class Play extends Phaser.Scene {
             this.gameOver = true;            
             console.log("Game over. High score: " + highScore);
         } else {            
-            this.clock = this.time.delayedCall(game.settings.gameTimer * 1000, () => {
+            this.clock = this.time.delayedCall(1000 * timerDelta, () => {
                 this.timerTick();
             }, null, this);
         }
