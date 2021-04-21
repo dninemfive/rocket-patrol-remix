@@ -39,19 +39,14 @@ class Play extends Phaser.Scene {
         textConfig.fixedWidth = 100;
         this.score = 0;        
         this.scoreLabel = this.add.text(borderUISize + borderPadding, borderUISize + (borderPadding * 2), this.score, textConfig);
-        this.timeElapsed = 0;
-        this.timerLabel = this.add.text(game.config.width - (borderUISize + (borderPadding * 2)), borderUISize + (borderPadding * 2), this.timeElapsed, textConfig).setOrigin(1, 0);
+        this.timeRemaining = game.settings.gameTimer;
+        this.timerLabel = this.add.text(game.config.width - (borderUISize + (borderPadding * 2)), borderUISize + (borderPadding * 2), this.timeRemaining, textConfig).setOrigin(1, 0);
 
         // timer
         this.gameOver = false;
         textConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer * 1000, () => {
-            highScore = this.score;
-            this.add.text(game.config.width / 2, game.config.height / 2 - 32, "GAME OVER", textConfig).setOrigin(0.5);
-            this.add.text(game.config.width / 2, game.config.height / 2, "High Score: " + highScore, textConfig).setOrigin(0.5);
-            this.add.text(game.config.width / 2, game.config.height / 2 + 32, "Press (R) to Restart or ← for Menu", textConfig).setOrigin(0.5);
-            this.gameOver = true;            
-            console.log("Game over. High score: " + highScore);
+            this.timerTick();
         }, null, this);
     }
 
@@ -105,5 +100,23 @@ class Play extends Phaser.Scene {
         this.score += ship.points;
         this.scoreLabel.text = this.score;
         this.sound.play('sfx_explosion');
-      }
+    }
+
+    // Called once per second. Schedules a call to itself until the game is over.
+    timerTick(){
+        if (this.timeRemaining <= 0){
+            highScore = this.score;
+            this.add.text(game.config.width / 2, game.config.height / 2 - 32, "GAME OVER", textConfig).setOrigin(0.5);
+            this.add.text(game.config.width / 2, game.config.height / 2, "High Score: " + highScore, textConfig).setOrigin(0.5);
+            this.add.text(game.config.width / 2, game.config.height / 2 + 32, "Press (R) to Restart or ← for Menu", textConfig).setOrigin(0.5);
+            this.gameOver = true;            
+            console.log("Game over. High score: " + highScore);
+        } else {
+            this.timeRemaining--;
+            this.timerLabel.text = timeRemaining;
+            this.clock = this.time.delayedCall(game.settings.gameTimer * 1000, () => {
+                this.timerTick();
+            }, null, this);
+        }
+    }
 }
