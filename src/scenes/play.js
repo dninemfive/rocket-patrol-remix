@@ -94,7 +94,7 @@ class Play extends Phaser.Scene {
             ship.reset();                         // reset ship position        
             ship.active = false;  
             boom.destroy();                       // remove explosion sprite
-            this.time.delayedCall(Phaser.Math.Between(10, 250) * Math.log10(ship.points), () => {
+            this.time.delayedCall(Phaser.Math.Between(125, 375) * Math.log10(ship.points), () => {
                 ship.active = true;
                 ship.alpha = 1;                       // make ship visible again
             }, null, this);
