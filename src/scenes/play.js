@@ -46,10 +46,11 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
         textConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer * 1000, () => {
-            this.add.text(game.config.width / 2, game.config.height / 2, "GAME OVER", textConfig).setOrigin(0.5);
-            this.add.text(game.config.width / 2, game.config.height / 2 + 64, "Press (R) to Restart or ← for Menu", textConfig).setOrigin(0.5);
-            this.gameOver = true;
             highScore = this.score;
+            this.add.text(game.config.width / 2, game.config.height / 2 - 32, "GAME OVER", textConfig).setOrigin(0.5);
+            this.add.text(game.config.width / 2, game.config.height / 2, "High Score: " + highScore, textConfig).setOrigin(0.5);
+            this.add.text(game.config.width / 2, game.config.height / 2 + 32, "Press (R) to Restart or ← for Menu", textConfig).setOrigin(0.5);
+            this.gameOver = true;            
             console.log("Game over. High score: " + highScore);
         }, null, this);
     }
