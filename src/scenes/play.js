@@ -104,17 +104,20 @@ class Play extends Phaser.Scene {
 
     // Called once per second. Schedules a call to itself until the game is over.
     timerTick(){
-        console.log(this.timeRemaining);
+        if (this.timeRemaining > 0) {
+            this.timeRemaining--;
+            this.timerLabel.text = this.timeRemaining;
+        }
         if (this.timeRemaining <= 0){
-            highScore = this.score;
+            if(this.score > highScore) {
+                highScore = this.score;
+            }
             this.add.text(game.config.width / 2, game.config.height / 2 - 32, "GAME OVER", textConfig).setOrigin(0.5);
             this.add.text(game.config.width / 2, game.config.height / 2, "High Score: " + highScore, textConfig).setOrigin(0.5);
             this.add.text(game.config.width / 2, game.config.height / 2 + 32, "Press (R) to Restart or ← for Menu", textConfig).setOrigin(0.5);
             this.gameOver = true;            
             console.log("Game over. High score: " + highScore);
-        } else {
-            this.timeRemaining--;
-            this.timerLabel.text = this.timeRemaining;
+        } else {            
             this.clock = this.time.delayedCall(game.settings.gameTimer * 1000, () => {
                 this.timerTick();
             }, null, this);
