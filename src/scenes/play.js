@@ -16,11 +16,19 @@ class Play extends Phaser.Scene {
         // rocket
         this.rocket = new Rocket(this, game.config.width / 2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);    
         // spaceships
-        this.ships = [
-            new Spaceship(this, game.config.width + borderUISize * 6, borderUISize * 4, 'spaceship', 0, 30).setOrigin(0,0),
-            new Spaceship(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'spaceship', 0, 20).setOrigin(0,0),
-            new Spaceship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'spaceship', 0, 10).setOrigin(0,0)
-        ];
+        this.ships = [];
+
+        // adds ship from the top to the bottom of the screen
+        for(let i = 0; i < numShips; i++){
+            this.ships.push(new Spaceship(
+                this,
+                game.config.width + borderUISize * (numShips - i - 1),
+                borderUISize * (4 + i) + borderPadding * (2 * (numShips - i - 1)),
+                'spaceship',
+                0,
+                10 * (numShips - i)
+            ).setOrigin(0,0));
+        }
 
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0,0);
         // white borders
@@ -64,7 +72,7 @@ class Play extends Phaser.Scene {
                 if (this.checkCollision(this.rocket, ship)){
                     this.rocket.reset();
                     this.shipExplode(ship);
-                    this.timeRemaining += 3 * timerDelta;
+                    this.timeRemaining += timeGainOnKill;
                 }
             }
         }
