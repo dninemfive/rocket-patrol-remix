@@ -6,12 +6,17 @@ class Rocket extends Phaser.GameObjects.Sprite{
         this.isFiring = false;
         this.moveSpeed = 2;
         this.sfxRocket = scene.sound.add('sfx_rocket');
+        if(useMouse){
+            // from https://phaser.discourse.group/t/detect-click-event-anywhere-on-canvas/924
+            this.scene.input.on('pointerdown', () => this.fire());
+        }           
     }
     
     update(){
         // movement
         let mouse = this.scene.input.activePointer;
         if(useMouse) {
+            // https://photonstorm.github.io/phaser3-docs/Phaser.Input.Pointer.html
             if(mouse.x < this.x && this.x >= borderUISize + this.width) {
                 this.x -= this.moveSpeed;
             } else if(mouse.x > this.x && this.x <= game.config.width - borderUISize - this.width) {
@@ -23,12 +28,10 @@ class Rocket extends Phaser.GameObjects.Sprite{
             } else if(keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width){
                 this.x += this.moveSpeed;
             }
-        }
-        // firing
-        if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring){
-            this.isFiring = true;
-            this.sfxRocket.play();
-        }
+            if(Phaser.Input.Keyboard.JustDown(keyF)){
+                this.fire();
+            }
+        }        
         if(this.isFiring && this.y >= borderUISize * 3 + borderPadding){
             this.y -= this.moveSpeed;
         }
@@ -40,5 +43,12 @@ class Rocket extends Phaser.GameObjects.Sprite{
     reset(){
         this.isFiring = false;
         this.y = game.config.height - borderUISize - borderPadding;
+    }
+
+    fire(){
+        if(!this.scene.gameOver && !this.isFiring){
+            this.isFiring = true;
+            this.sfxRocket.play();
+        }        
     }
 }
