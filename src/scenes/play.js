@@ -24,8 +24,7 @@ class Play extends Phaser.Scene {
                 this,
                 game.config.width + borderUISize * (2 * (numShips - i - 1)),
                 borderUISize * (4 + i) + borderPadding * (2 * i),
-                'spaceship',
-                0,
+                'spaceship', 0,
                 10 * (numShips - i)
             ).setOrigin(0,0));
         }
