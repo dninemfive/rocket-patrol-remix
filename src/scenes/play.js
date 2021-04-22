@@ -22,8 +22,8 @@ class Play extends Phaser.Scene {
         for(let i = 0; i < numShips; i++){
             this.ships.push(new Spaceship(
                 this,
-                game.config.width + borderUISize * (numShips - i - 1),
-                borderUISize * (4 + i) + borderPadding * (2 * (numShips - i - 1)),
+                game.config.width + borderUISize * (2 * (numShips - i - 1)),
+                borderUISize * (4 + i) + borderPadding * (2 * i),
                 'spaceship',
                 0,
                 10 * (numShips - i)
