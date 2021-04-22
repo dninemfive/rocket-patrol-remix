@@ -12,6 +12,7 @@ let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
 let keyF, keyR, keyLEFT, keyRIGHT;
+let useMouse = true;
 
 let highScore = 0;
 let timerDelta = 0.1; // resolution of the timer, as a fraction of one second
