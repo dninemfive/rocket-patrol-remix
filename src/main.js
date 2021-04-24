@@ -1,5 +1,22 @@
 /*
-    
+    Rocket Patrol Mods Assignment - 4/23/21 - 10hr or so
+
+    Points (see https://github.com/dninemfive/rocket-patrol-remix/projects/1 for detailed status):
+         65-75
+
+    Breakdown:
+    #pts    Completed?    Description
+       5    Yes             Missile controllable in flight by player
+       5    Yes             Randomized delay on ship respawn
+       5    Yes             High Score saved between playthroughs and displayed in game
+       10   Yes             Timer visible during gameplay and ticks down properly
+       20   Yes             Time added to clock each time a ship is destroyed
+       20   Mostly          Full control of spaceship with mouse; controlled with a global variable rather than an in-game setting as desired
+       10   Mostly          Variable number of ships; controlled with a global variable rather than an in-game setting as desired
+       10   No              Dynamic score multiplier based on number of ships and speed
+       20   No              Multi-Target Powerup (second weapon on the assignment)
+       10   No              Rebindable Controls
+       
 */
 console.log("Loaded.");
 let config = {
