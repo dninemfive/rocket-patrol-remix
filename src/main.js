@@ -1,3 +1,6 @@
+/*
+    
+*/
 console.log("Loaded.");
 let config = {
     type: Phaser.CANVAS,
