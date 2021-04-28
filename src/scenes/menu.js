@@ -84,7 +84,7 @@ class Menu extends Phaser.Scene {
         // TL;DR is it scales with the number of ships and the speed, with a linear offset based on how long you have to score
         // Default "normal" difficulty settings from the original game result in a modifier of 1.
         difficultyMod = (1 + Math.log10(numShips)) * (1 + Math.log10(shipSpeed));
-        difficultyMod /= (1 + Math.log10(3) ** 2);
+        difficultyMod /= ((1 + Math.log10(3)) ** 2);
         difficultyMod = difficultyMod ** 2;
         difficultyMod *= (timeLimit / 45);
         difficultyMod = Math.round(difficultyMod * 100) / 100;
