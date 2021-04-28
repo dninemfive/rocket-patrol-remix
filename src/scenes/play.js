@@ -40,10 +40,6 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        if(useMouse){
-            // from https://phaser.discourse.group/t/detect-click-event-anywhere-on-canvas/924
-            this.input.on('pointerdown', () => this.fire());
-        }    
 
         this.anims.create({ key: "explode", frames: this.anims.generateFrameNumbers("explosion", { start: 0, end: 9, first: 0}), frameRate: 30 });
 
@@ -109,7 +105,8 @@ class Play extends Phaser.Scene {
                 ship.alpha = 1;                       // make ship visible again
             }, null, this);
         }); 
-        this.score += ship.points;
+        this.score += ship.points * difficultyMod;
+        this.score = Math.round(this.score);
         this.scoreLabel.text = this.score;
         this.sound.play('sfx_explosion');
     }

@@ -71,8 +71,8 @@ class Menu extends Phaser.Scene {
         if(num < 1) {
             num = 1;
         }
-        if(num > 20){
-            num = 20;
+        if(num > 7){
+            num = 7;
         }
         shipSpeed = num;
         this.shipSpeedText.text = "Press S to set ship speed: " + shipSpeed;
