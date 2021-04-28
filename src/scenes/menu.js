@@ -27,6 +27,7 @@ class Menu extends Phaser.Scene {
         
         this.keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         this.keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }    
 
@@ -56,6 +57,23 @@ class Menu extends Phaser.Scene {
         this.numShipsText.text = "Press N to set the number of ships: " + numShips;
     }
 
+    setShipSpeed(){
+        let result = "NaN";        
+        // from https://stackoverflow.com/a/175787
+        while(isNaN(result) || isNaN(parseFloat(result))){
+            result = prompt("Enter ship speed");
+        }
+        let num = parseInt(result);
+        if(num < 1) {
+            num = 1;
+        }
+        if(num > 20){
+            num = 20;
+        }
+        shipSpeed = num;
+        this.shipSpeedText.text = "Press S to set ship speed: " + shipSpeed;
+    }
+
     update(){
         if (Phaser.Input.Keyboard.JustDown(this.keySPACE)){
             game.settings = {
@@ -71,6 +89,9 @@ class Menu extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(this.keyN)){
             this.setNumShips();
+        }
+        if(Phaser.Input.Keyboard.JustDown(this.keyS)){
+            this.setShipSpeed();
         }
     }    
 }
