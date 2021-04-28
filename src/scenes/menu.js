@@ -25,11 +25,11 @@ class Menu extends Phaser.Scene {
         this.shipSpeedText = this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 5, "Press S to set ship speed: " + shipSpeed, textConfig).setOrigin(0.5);
         this.timerText =     this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 6, "Press T to set timer: " + timeLimit, textConfig).setOrigin(0.5);
         this.difficultyModText = this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 7, "Difficulty modifier: " + difficultyMod, textConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 8, "Press SPACE to start", menuConfig).setOrigin(0.5);
-        
+        this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 8, "Press SPACE to start", menuConfig).setOrigin(0.5);        
         this.keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         this.keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
         this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.setDifficultyMod();
     }    
@@ -79,6 +79,24 @@ class Menu extends Phaser.Scene {
         this.setDifficultyMod();
     }
 
+    setTimer(){
+        let result = "NaN";        
+        // from https://stackoverflow.com/a/175787
+        while(isNaN(result) || isNaN(parseFloat(result))){
+            result = prompt("Enter ship speed");
+        }
+        let num = parseInt(result);
+        if(num < 2) {
+            num = 2;
+        }
+        if(num > 3600){
+            num = 3600;
+        }
+        timeLimit = num;
+        this.timerText.text = "Press T to set timer: " + timeLimit;
+        this.setDifficultyMod();
+    }
+
     setDifficultyMod(){
         // complicated formula put together in Desmos.
         // TL;DR is it scales with the number of ships and the speed, with a linear offset based on how long you have to score
@@ -86,7 +104,7 @@ class Menu extends Phaser.Scene {
         difficultyMod = (1 + Math.log10(numShips)) * (1 + Math.log10(shipSpeed));
         difficultyMod /= ((1 + Math.log10(3)) ** 2);
         difficultyMod = difficultyMod ** 2;
-        difficultyMod *= (timeLimit / 45);
+        difficultyMod *= (45 / timeLimit);
         difficultyMod = Math.round(difficultyMod * 100) / 100;
         this.difficultyModText.text = "Difficulty modifier: " + difficultyMod;
     }
@@ -109,6 +127,9 @@ class Menu extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(this.keyS)){
             this.setShipSpeed();
+        }
+        if(Phaser.Input.Keyboard.JustDown(this.keyT)){
+            this.setTimer();
         }
     }    
 }
