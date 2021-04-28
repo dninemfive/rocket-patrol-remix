@@ -41,7 +41,8 @@ class Menu extends Phaser.Scene {
 
     setNumShips(){
         let result = "NaN";        
-        while(isNaN(result)){
+        // from https://stackoverflow.com/a/175787
+        while(isNaN(result) || isNaN(parseFloat(result))){
             result = prompt("Enter the number of ships");
         }
         let num = parseInt(result);
@@ -64,8 +65,9 @@ class Menu extends Phaser.Scene {
             this.sound.play("sfx_select");
             this.scene.start("play");
         }
-        if(Phaser.Input.Keyboard.JustDown(this.keyM)){
+        if(Phaser.Input.Keyboard.JustDown(this.keyM)){            
             this.toggleMouse();
+            this.sound.play("sfx_select");
         }
         if(Phaser.Input.Keyboard.JustDown(this.keyN)){
             this.setNumShips();
