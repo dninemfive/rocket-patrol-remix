@@ -2,7 +2,7 @@
     Rocket Patrol Mods Assignment - 4/23/21 - 10hr or so
 
     Points (see https://github.com/dninemfive/rocket-patrol-remix/projects/1 for detailed status):
-         65-75
+         85
 
     Breakdown:
     #pts    Completed?    Description
@@ -13,7 +13,7 @@
        20   Yes             Time added to clock each time a ship is destroyed
        20   Yes             Full control of spaceship with mouse, toggled on the main menu
        10   Yes             Variable number of ships, set on the main menu
-       10   No              Dynamic score multiplier based on number of ships and speed
+       10   Yes             Dynamic score multiplier based on number of ships and speed
        20   No              Multi-Target Powerup (second weapon on the assignment)
        10   No              Rebindable Controls
        
