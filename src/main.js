@@ -11,7 +11,7 @@
        5    Yes             High Score saved between playthroughs and displayed in game
        10   Yes             Timer visible during gameplay and ticks down properly
        20   Yes             Time added to clock each time a ship is destroyed
-       20   Mostly          Full control of spaceship with mouse; controlled with a global variable rather than an in-game setting as desired
+       20   Yes             Full control of spaceship with mouse, toggled on the main menu
        10   Mostly          Variable number of ships; controlled with a global variable rather than an in-game setting as desired
        10   No              Dynamic score multiplier based on number of ships and speed
        20   No              Multi-Target Powerup (second weapon on the assignment)
