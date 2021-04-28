@@ -12,7 +12,7 @@
        10   Yes             Timer visible during gameplay and ticks down properly
        20   Yes             Time added to clock each time a ship is destroyed
        20   Yes             Full control of spaceship with mouse, toggled on the main menu
-       10   Mostly          Variable number of ships; controlled with a global variable rather than an in-game setting as desired
+       10   Yes             Variable number of ships, set on the main menu
        10   No              Dynamic score multiplier based on number of ships and speed
        20   No              Multi-Target Powerup (second weapon on the assignment)
        10   No              Rebindable Controls
@@ -38,6 +38,7 @@ let highScore = 0;
 let timerDelta = 0.1; // resolution of the timer, as a fraction of one second
 let timeGainOnKill = 3 * timerDelta;
 let numShips = 4;
+let shipSpeed = 3;
 
 // if we make this a global we don't have to copy this to multiple contexts >.>
 let textConfig = {

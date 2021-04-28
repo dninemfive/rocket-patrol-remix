@@ -10,7 +10,7 @@ class Menu extends Phaser.Scene {
     }
 
     create(){
-        this.keyboardCtrlStr = "Use ←→ arrows to move & (F) to fire";
+        this.keyboardCtrlStr = "Use ←→ arrows to move and F to fire";
         this.mouseCtrlStr = "Use mouse to move and lclick to fire";
 
         this.add.text(game.config.width / 2, (borderUISize + borderPadding), " ROCKET PATROL ", textConfig).setOrigin(0.5);
@@ -22,14 +22,12 @@ class Menu extends Phaser.Scene {
             this.controlText.text = this.keyboardCtrlStr;
         }
         this.numShipsText = this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 4, "Press N to set the number of ships: " + numShips, textConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2, game.config.height / 2 + borderUISize + borderPadding, "Press ← for Novice or → for Expert", menuConfig).setOrigin(0.5);
-        //this.add.text(game.config.width / 2, game.config.height / 2, "✗", textConfig).setOrigin(0.5);
-        //this.add.text(game.config.width / 2 + 40, game.config.height / 2, "✓", menuConfig).setOrigin(0.5);
-
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        this.shipSpeedText = this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 5, "Press S to set ship speed: " + shipSpeed, textConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2, game.config.height / 2 + borderUISize + borderPadding, "Press SPACE to start", menuConfig).setOrigin(0.5);
+        
         this.keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         this.keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+        this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }    
 
     toggleMouse(){
@@ -58,19 +56,10 @@ class Menu extends Phaser.Scene {
     }
 
     update(){
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)){
-            // easy
+        if (Phaser.Input.Keyboard.JustDown(this.keySPACE)){
             game.settings = {
-                spaceshipSpeed: 3,
+                spaceshipSpeed: shipSpeed,
                 gameTimer: 5 // in seconds, will be multiplied by 1000 later
-            }
-            this.sound.play("sfx_select");
-            this.scene.start("play");
-        }
-        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)){
-            game.settings = {
-                spaceshipSpeed: 4,
-                gameTimer: 7
             }
             this.sound.play("sfx_select");
             this.scene.start("play");
