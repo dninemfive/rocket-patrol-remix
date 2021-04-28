@@ -31,6 +31,7 @@ class Menu extends Phaser.Scene {
         this.keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.setDifficultyMod();
     }    
 
     toggleMouse(){
@@ -82,7 +83,10 @@ class Menu extends Phaser.Scene {
         // complicated formula put together in Desmos.
         // TL;DR is it scales with the number of ships and the speed, with a linear offset based on how long you have to score
         // Default "normal" difficulty settings from the original game result in a modifier of 1.
-        difficultyMod = ((((1 + Math.log10(numShips)) * (1 + Math.log10(shipSpeed))) / (1 + Math.log10(3) ** 2)) ** 2) * (timeLimit / 45);
+        difficultyMod = (1 + Math.log10(numShips)) * (1 + Math.log10(shipSpeed));
+        difficultyMod /= (1 + Math.log10(3) ** 2);
+        difficultyMod = difficultyMod ** 2;
+        difficultyMod *= (timeLimit / 45);
         difficultyMod = Math.round(difficultyMod * 100) / 100;
         this.difficultyModText.text = "Difficulty modifier: " + difficultyMod;
     }
