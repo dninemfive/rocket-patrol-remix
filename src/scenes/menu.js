@@ -21,9 +21,11 @@ class Menu extends Phaser.Scene {
         } else {
             this.controlText.text = this.keyboardCtrlStr;
         }
-        this.numShipsText = this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 4, "Press N to set the number of ships: " + numShips, textConfig).setOrigin(0.5);
+        this.numShipsText =  this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 4, "Press N to set the number of ships: " + numShips, textConfig).setOrigin(0.5);
         this.shipSpeedText = this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 5, "Press S to set ship speed: " + shipSpeed, textConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2, game.config.height / 2 + borderUISize + borderPadding, "Press SPACE to start", menuConfig).setOrigin(0.5);
+        this.timerText =     this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 6, "Press T to set timer: " + timeLimit, textConfig).setOrigin(0.5);
+        this.difficultyModText = this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 7, "Difficulty modifier: " + difficultyMod, textConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2, (borderUISize + borderPadding) * 8, "Press SPACE to start", menuConfig).setOrigin(0.5);
         
         this.keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         this.keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
@@ -55,6 +57,7 @@ class Menu extends Phaser.Scene {
         }
         numShips = num;
         this.numShipsText.text = "Press N to set the number of ships: " + numShips;
+        this.setDifficultyMod();
     }
 
     setShipSpeed(){
@@ -72,13 +75,23 @@ class Menu extends Phaser.Scene {
         }
         shipSpeed = num;
         this.shipSpeedText.text = "Press S to set ship speed: " + shipSpeed;
+        this.setDifficultyMod();
+    }
+
+    setDifficultyMod(){
+        // complicated formula put together in Desmos.
+        // TL;DR is it scales with the number of ships and the speed, with a linear offset based on how long you have to score
+        // Default "normal" difficulty settings from the original game result in a modifier of 1.
+        difficultyMod = ((((1 + Math.log10(numShips)) * (1 + Math.log10(shipSpeed))) / (1 + Math.log10(3) ** 2)) ** 2) * (timeLimit / 45);
+        difficultyMod = Math.round(difficultyMod * 100) / 100;
+        this.difficultyModText.text = "Difficulty modifier: " + difficultyMod;
     }
 
     update(){
         if (Phaser.Input.Keyboard.JustDown(this.keySPACE)){
             game.settings = {
                 spaceshipSpeed: shipSpeed,
-                gameTimer: 5 // in seconds, will be multiplied by 1000 later
+                gameTimer: timeLimit
             }
             this.sound.play("sfx_select");
             this.scene.start("play");

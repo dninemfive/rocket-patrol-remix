@@ -39,6 +39,8 @@ let timerDelta = 0.1; // resolution of the timer, as a fraction of one second
 let timeGainOnKill = 3 * timerDelta;
 let numShips = 4;
 let shipSpeed = 3;
+let difficultyMod = 1.0;
+let timeLimit = 45;
 
 // if we make this a global we don't have to copy this to multiple contexts >.>
 let textConfig = {
